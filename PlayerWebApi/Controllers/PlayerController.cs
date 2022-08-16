@@ -97,13 +97,13 @@ public class PlayerController : ControllerBase
     public async Task<IActionResult> PutAsync(int id, string name = null, string position = null, IEnumerable<PlayerSkill> playerSkills = null)
     {
         try
-        { foreach (PlayerSkill playerSkill in playerSkills)
+        { 
+            foreach (PlayerSkill playerSkill in playerSkills)
             {
                 if (playerSkill.Value > 99 || playerSkill.Value < 0 ) throw new Exception("Invalid value for player skill " + playerSkill.Skill +": "+playerSkill.Value);
             }
-            if (name == null || name == "") throw new Exception("Invalid value for name: "+name);
             if (playerSkills.Count() <= 0) throw new Exception("PlayerSkills must have at least one entry.");
-            if (position == "defender" || position == "midfielder" || position == "forward")
+            if (position == "defender" || position == "midfielder" || position == "forward" || position == "null")
             {
                 Player player = _dbContext.Players.Where(s => s.Id == id).First();
                 if (name != null)
